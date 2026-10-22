@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Spesial Untuk Nida 🛁🦜</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Sacramento&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+            padding: 20px;
+        }
+
+        /* Bubble Animation Background */
+        .bubbles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: rise 10s infinite ease-in;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .bubble:nth-child(1) { left: 10%; width: 30px; height: 30px; animation-duration: 8s; }
+        .bubble:nth-child(2) { left: 20%; width: 50px; height: 50px; animation-duration: 12s; animation-delay: 1s; }
+        .bubble:nth-child(3) { left: 35%; width: 25px; height: 25px; animation-duration: 6s; animation-delay: 2s; }
+        .bubble:nth-child(4) { left: 50%; width: 60px; height: 60px; animation-duration: 11s; }
+        .bubble:nth-child(5) { left: 65%; width: 35px; height: 35px; animation-duration: 9s; animation-delay: 3s; }
+        .bubble:nth-child(6) { left: 80%; width: 45px; height: 45px; animation-duration: 13s; animation-delay: 1s; }
+
+        @keyframes rise {
+            0% {
+                bottom: -100px;
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(100px);
+            }
+            100% {
+                bottom: 1080px;
+                transform: translateX(-20px);
+            }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 30px 25px;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            position: relative;
+            z-index: 10;
+            transition: all 0.5s ease;
+        }
+
+        .title-romantic {
+            font-family: 'Sacramento', cursive;
+            font-size: 2.8rem;
+            color: #ff4757;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: #57606f;
+            margin-bottom: 25px;
+        }
+
+        .main-img {
+            width: 130px;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            border: 4px solid #ff6b81;
+            box-shadow: 0 8px 20px rgba(255, 107, 129, 0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .question-box {
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            font-weight: 600;
+            color: #2f3542;
+            border: 1px dashed #ff6b81;
+            font-size: 1.05rem;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            position: relative;
+            min-height: 50px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-yes {
+            background: linear-gradient(45deg, #ff4757, #ff6b81);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.08);
+            box-shadow: 0 8px 20px rgba(255, 71, 87, 0.6);
+        }
+
+        .btn-no {
+            background: #a4b0be;
+            color: white;
+            position: absolute;
+            transition: all 0.2s ease;
+        }
+
+        /* Hidden Sections */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Password Input */
+        .input-pass {
+            width: 80%;
+            padding: 12px;
+            border: 2px solid #ff6b81;
+            border-radius: 25px;
+            text-align: center;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            outline: none;
+        }
+
+        /* Modal Celebration */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 320px;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-content h3 {
+            color: #ff4757;
+            margin-bottom: 10px;
+        }
+
+        .modal-content p {
+            color: #57606f;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Bubbles -->
+    <div class="bubbles">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+    </div>
+
+    <!-- Step 1: Login / Password -->
+    <div class="card" id="step1">
+        <h1 class="title-romantic">Halo Nida! ✨</h1>
+        <p class="subtitle">Masukkan tanggal lahir kamu/aku dulu yaa...</p>
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDdtZ2ppbm53N2R4Z3R4ZnpxbjBsZXFvZWRiZmJqOHR6bnI1Ynl3byZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Lq0h93752f6J9tijrh/giphy.gif" alt="Cute Bear" class="main-img">
+        <div>
+            <input type="password" id="passInput" class="input-pass" placeholder="Password (051104)" maxlength="6">
+            <br>
+            <button class="btn btn-yes" onclick="checkPassword()">Buka Ajakan 🔐</button>
+        </div>
+    </div>
+
+    <!-- Step 2: Main Invitation -->
+    <div class="card hidden" id="step2">
+        <h1 class="title-romantic">Buka Baju... 🛁</h1>
+        <p class="subtitle">Ada pesan spesial buat kamu hari ini!</p>
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeWZsdGpxYnk2eTJvOHR0bjY5OHpudHR1czEybzFwdmd2YnplOGZ4OSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7TKoWXm3okO1kgHC/giphy.gif" alt="Duck Bath" class="main-img">
+        
+        <div class="question-box">
+            Yuk mandi bareng sayang... Sekalian aku mau tunjukin 🦜 aku! ✨
+        </div>
+
+        <div class="btn-group" id="btnGroup">
+            <button class="btn btn-yes" onclick="acceptInvitation()">Mau Banget! 🛁🦜</button>
+            <button class="btn btn-no" id="btnNo" onmouseover="moveButton()" onclick="moveButton()">Nggak Mau 😜</button>
+        </div>
+    </div>
+
+    <!-- Celebration Modal -->
+    <div class="modal" id="celebrationModal">
+        <div class="modal-content">
+            <h3>Horeee! 🎉✨</h3>
+            <p>Jawaban kamu bakal langsung terkirim ke WhatsApp aku ya sayang... Siap-siap mandi! 🛁🦜</p>
+            <button class="btn btn-yes" onclick="redirectToWA()">Kirim ke WhatsApp 📲</button>
+        </div>
+    </div>
+
+    <!-- Audio Background -->
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const NOMOR_WA = "6288279207004"; // Nomor WhatsApp kamu
+
+        function checkPassword() {
+            const input = document.getElementById('passInput').value;
+            if (input === "051104") {
+                document.getElementById('step1').classList.add('hidden');
+                document.getElementById('step2').classList.remove('hidden');
+                playAudio();
+            } else {
+                alert("Password salah! Petunjuk: Tanggal lahir aku (051104) 😜");
+            }
+        }
+
+        function playAudio() {
+            const audio = document.getElementById('bgMusic');
+            audio.play().catch(e => console.log("Audio autoplay prevented"));
+        }
+
+        function moveButton() {
+            const btnNo = document.getElementById('btnNo');
+            const card = document.getElementById('step2');
+            
+            const cardRect = card.getBoundingClientRect();
+            const btnRect = btnNo.getBoundingClientRect();
+
+            // Calculate random position inside card
+            const maxX = cardRect.width - btnRect.width - 40;
+            const maxY = cardRect.height - btnRect.height - 40;
+
+            const randomX = Math.floor(Math.random() * maxX) - (maxX / 2);
+            const randomY = Math.floor(Math.random() * maxY) - (maxY / 2);
+
+            btnNo.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        }
+
+        function acceptInvitation() {
+            // Trigger Confetti
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+
+            // Show Modal
+            setTimeout(() => {
+                document.getElementById('celebrationModal').classList.add('active');
+            }, 500);
+        }
+
+        function redirectToWA() {
+            const pesan = encodeURIComponent("Halo sayang! Aku mau banget mandi bareng kamu sambil liat 🦜! 🛁✨💖");
+            const urlWA = `https://wa.me/${NOMOR_WA}?text=${pesan}`;
+            window.location.href = urlWA;
+        }
+    </script>
+</body>
+</html>
